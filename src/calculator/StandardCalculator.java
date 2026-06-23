@@ -9,7 +9,7 @@ public class StandardCalculator implements Calculator {
     private final List<Action> ACTION_SEQUENCE_LIST = new ArrayList<>();
 
     @Override
-    public List<Action> getSequenceList(int targetValue, List<Action> finalActions) {
+    public List<Action> getActionSequenceList(int targetValue, List<Action> finalActions) {
         int adjustedTargetValue = getAdjustedTargetValue(targetValue, finalActions);
         addActionSequence(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
         addFinalActions(finalActions);

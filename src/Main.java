@@ -11,7 +11,7 @@ public class Main {
         finalActions.add(new AnyHit());
 
         Calculator calculator = new StandardCalculator();
-        List<Action> sequence = calculator.getSequenceList(targetValue, finalActions);
+        List<Action> sequence = calculator.getActionSequenceList(targetValue, finalActions);
         for (Action action : sequence) System.out.println(action);
     }
 }
