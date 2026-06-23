@@ -11,12 +11,12 @@ public class StandardCalculator implements Calculator {
     @Override
     public List<Action> getSequenceList(int targetValue, List<Action> finalActions) {
         int adjustedTargetValue = getAdjustedTargetValue(targetValue, finalActions);
-        calculateActionSequence(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
+        addActionSequence(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
         addFinalActions(finalActions);
         return ACTION_LIST;
     }
 
-    private void calculateActionSequence(int targetValue, int difference, List<Action> actionPool) {
+    private void addActionSequence(int targetValue, int difference, List<Action> actionPool) {
         if (difference == 0) return;
 
         Action bestAction = getBestAction(difference, actionPool);
@@ -27,7 +27,7 @@ public class StandardCalculator implements Calculator {
         if (repetitions != 1) {
             int nextDifference = targetValue - getCurrentValue(ACTION_LIST);
             List<Action> nextActionPool = List.of((nextDifference > 0) ? POSITIVE_ACTIONS : NEGATIVE_ACTIONS);
-            calculateActionSequence(targetValue, nextDifference, nextActionPool);
+            addActionSequence(targetValue, nextDifference, nextActionPool);
         }
     }
 
