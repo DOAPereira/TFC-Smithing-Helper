@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) {
         int targetValue = 93;
         List<Action> finalActions = new ArrayList<>();
-        finalActions.add(new LightHit());
-        finalActions.add(new LightHit());
+        finalActions.add(new AnyHit());
+        finalActions.add(new AnyHit());
 
         Calculator calculator = new StandardCalculator();
-        List<Action> sequence = calculator.getActionList(targetValue, finalActions);
+        List<Action> sequence = calculator.getSequenceList(targetValue, finalActions);
         for (Action action : sequence) System.out.println(action);
     }
 }

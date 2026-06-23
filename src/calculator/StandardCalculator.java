@@ -9,42 +9,41 @@ public class StandardCalculator implements Calculator {
     private final List<Action> ACTION_LIST = new ArrayList<>();
 
     @Override
-    public List<Action> getActionList(int targetValue, List<Action> finalActions) {
+    public List<Action> getSequenceList(int targetValue, List<Action> finalActions) {
         int adjustedTargetValue = getAdjustedTargetValue(targetValue, finalActions);
-        calculateActions(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
-        addActions(finalActions);
+        calculateActionSequence(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
+        addFinalActions(finalActions);
         return ACTION_LIST;
     }
 
-    private void calculateActions(int combinedValue, int target, List<Action> actions) {
-        if (target == 0) return;
+    private void calculateActionSequence(int targetValue, int difference, List<Action> actionPool) {
+        if (difference == 0) return;
 
-        Action bestAction = getBestAction(target, actions);
-        double repetitions = (double) target / bestAction.getVALUE();
+        Action bestAction = getBestAction(difference, actionPool);
+        double repetitions = (double) difference / bestAction.getVALUE();
 
         addRepeatedAction(repetitions, bestAction);
 
         if (repetitions != 1) {
-            int nextTarget = combinedValue - getCombinedValue(ACTION_LIST);
-            List<Action> nextActions = List.of((nextTarget > 0) ? POSITIVE_ACTIONS : NEGATIVE_ACTIONS);
-            calculateActions(combinedValue, nextTarget, nextActions);
+            int nextDifference = targetValue - getCurrentValue(ACTION_LIST);
+            List<Action> nextActionPool = List.of((nextDifference > 0) ? POSITIVE_ACTIONS : NEGATIVE_ACTIONS);
+            calculateActionSequence(targetValue, nextDifference, nextActionPool);
         }
     }
 
     private void addRepeatedAction(double amount, Action action) {
         int limiter = (int) ((amount > 1) ? Math.floor(amount) : Math.ceil(amount));
-        for (int i = 0; i < limiter; i++) {
-            ACTION_LIST.add(action);
-        }
+        for (int i = 0; i < limiter; i++) ACTION_LIST.add(action);
     }
 
-    private void addActions(List<Action> actions) {
+    private void addFinalActions(List<Action> actions) {
         ACTION_LIST.addAll(actions);
     }
 
     private Action getBestAction(int target, List<Action> actions) {
         Action bestAction = null;
         double lowestValue = Double.MAX_VALUE;
+
         for (Action action : actions) {
             double currentValue = (double) target / action.getVALUE();
             currentValue = Math.abs(1 - currentValue);
@@ -63,7 +62,7 @@ public class StandardCalculator implements Calculator {
         return adjustedTargetValue;
     }
 
-    private int getCombinedValue(List<Action> actions) {
+    private int getCurrentValue(List<Action> actions) {
         int combinedValue = 0;
         for (Action action : actions) combinedValue += action.getVALUE();
         return combinedValue;
