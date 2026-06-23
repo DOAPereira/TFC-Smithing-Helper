@@ -6,14 +6,14 @@ import java.util.List;
 public class StandardCalculator implements Calculator {
     private final Action[] POSITIVE_ACTIONS = {new Punch(), new Bend(), new Upset(), new Shrink()};
     private final Action[] NEGATIVE_ACTIONS = {new LightHit(), new MediumHit(), new HardHit(), new Draw()};
-    private final List<Action> ACTION_LIST = new ArrayList<>();
+    private final List<Action> ACTION_SEQUENCE_LIST = new ArrayList<>();
 
     @Override
     public List<Action> getSequenceList(int targetValue, List<Action> finalActions) {
         int adjustedTargetValue = getAdjustedTargetValue(targetValue, finalActions);
         addActionSequence(adjustedTargetValue, adjustedTargetValue, List.of(POSITIVE_ACTIONS));
         addFinalActions(finalActions);
-        return ACTION_LIST;
+        return ACTION_SEQUENCE_LIST;
     }
 
     private void addActionSequence(int targetValue, int difference, List<Action> actionPool) {
@@ -25,7 +25,7 @@ public class StandardCalculator implements Calculator {
         addRepeatedAction(repetitions, bestAction);
 
         if (repetitions != 1) {
-            int nextDifference = targetValue - getCurrentValue(ACTION_LIST);
+            int nextDifference = targetValue - getCurrentValue(ACTION_SEQUENCE_LIST);
             List<Action> nextActionPool = List.of((nextDifference > 0) ? POSITIVE_ACTIONS : NEGATIVE_ACTIONS);
             addActionSequence(targetValue, nextDifference, nextActionPool);
         }
@@ -33,11 +33,11 @@ public class StandardCalculator implements Calculator {
 
     private void addRepeatedAction(double amount, Action action) {
         int limiter = (int) ((amount > 1) ? Math.floor(amount) : Math.ceil(amount));
-        for (int i = 0; i < limiter; i++) ACTION_LIST.add(action);
+        for (int i = 0; i < limiter; i++) ACTION_SEQUENCE_LIST.add(action);
     }
 
     private void addFinalActions(List<Action> actions) {
-        ACTION_LIST.addAll(actions);
+        ACTION_SEQUENCE_LIST.addAll(actions);
     }
 
     private Action getBestAction(int target, List<Action> actions) {
