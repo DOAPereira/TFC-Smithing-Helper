@@ -2,6 +2,6 @@ package calculator;
 
 import java.util.List;
 
-public interface Calculator {
+public interface ActionCalculator {
     List<Action> getActionSequenceList(int targetValue, List<Action> finalActions);
 }

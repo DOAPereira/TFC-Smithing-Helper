@@ -10,7 +10,7 @@ public class Main {
         finalActions.add(new AnyHit());
         finalActions.add(new AnyHit());
 
-        Calculator calculator = new StandardCalculator();
+        ActionCalculator calculator = new StandardActionCalculator();
         List<Action> sequence = calculator.getActionSequenceList(targetValue, finalActions);
         for (Action action : sequence) System.out.println(action);
     }
