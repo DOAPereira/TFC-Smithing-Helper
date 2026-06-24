@@ -1,4 +1,4 @@
-package calculator;
+package action.calculator;
 
 public class Punch implements Action{
     @Override

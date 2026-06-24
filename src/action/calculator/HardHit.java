@@ -1,4 +1,4 @@
-package calculator;
+package action.calculator;
 
 public class HardHit implements Action{
     @Override

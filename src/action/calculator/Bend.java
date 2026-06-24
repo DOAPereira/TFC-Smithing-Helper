@@ -1,4 +1,4 @@
-package calculator;
+package action.calculator;
 
 public class Bend implements Action{
     @Override

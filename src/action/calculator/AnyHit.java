@@ -1,4 +1,4 @@
-package calculator;
+package action.calculator;
 
 public class AnyHit implements Action{
     @Override
