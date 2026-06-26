@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TFC-Smithing-Helper:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TFC_Smithing_Helper_jar</output-path>
+    <root id="archive" name="TFC-Smithing-Helper.jar">
+      <element id="module-output" name="TFC-Smithing-Helper" />
+    </root>
+  </artifact>
+</component>
